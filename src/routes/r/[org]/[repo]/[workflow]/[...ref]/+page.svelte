@@ -74,6 +74,3 @@
 		{/each}
 	</tbody>
 </table>
-
-<style lang="scss">
-</style>
