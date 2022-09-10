@@ -1,25 +1,10 @@
-<script lang=ts>
-   import type { Load } from '@sveltejs/kit';
-   
-   export const load: Load = async ({ fetch }) => {
-     const res = await fetch(`/fetch/`);
-   
-     if (res.ok) {
-       return {
-         status: res.status,
-         props: {
-            propName: await res.json()
-         }
-       };
-     }
-   
-     return {
-       status: res.status,
-       error: new Error(`Could not load url`)
-     };
-   }
+<script lang="ts">
+	import type { PageData } from './$types';
+	export let data: PageData;
 </script>
 
-<style>
-
-</style>
+<ul>
+  {#each data.repos as repo}
+    <li><a href={`/r/${repo.owner}/${repo.name}`}>{repo.owner}/{repo.name}</a></li>
+  {/each}
+</ul>

@@ -3,7 +3,7 @@
 
 declare namespace App {
 	interface Locals {
-		dataSource: import('typeorm').DataSource
+		prisma: import('@prisma/client').PrismaClient
 	}
 	// interface PageData {}
 	// interface Platform {}
