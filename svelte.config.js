@@ -8,7 +8,7 @@ const config = {
 	preprocess: preprocess({ postcss: true, sourceMap: true }),
 
 	kit: {
-		adapter: adapter({ precompress: true })
+		adapter: adapter()
 	},
 	compilerOptions: {
 		enableSourcemap: true
