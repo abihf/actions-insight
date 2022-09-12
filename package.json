@@ -12,11 +12,15 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."
 	},
+	"dependencies": {
+		"prisma": "^4.3.1"
+	},
 	"devDependencies": {
 		"@fortawesome/free-solid-svg-icons": "^6.2.0",
 		"@octokit/webhooks-types": "^6.3.6",
 		"@prisma/client": "^4.3.1",
 		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-node": "1.0.0-next.89",
 		"@sveltejs/kit": "next",
 		"@types/node": "^18",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
@@ -31,7 +35,6 @@
 		"postcss": "^8.4.16",
 		"prettier": "^2.6.2",
 		"prettier-plugin-svelte": "^2.7.0",
-		"prisma": "^4.3.1",
 		"svelte": "^3.44.0",
 		"svelte-check": "^2.7.1",
 		"svelte-fa": "^3.0.3",
