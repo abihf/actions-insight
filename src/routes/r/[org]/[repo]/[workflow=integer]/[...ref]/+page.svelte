@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData, RouteParams } from './$types';
+	import type { PageData } from './$types';
 	import { page } from '$app/stores';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import {
@@ -12,7 +12,7 @@
 	export let data: PageData;
 	const params = $page.params;
 	export const repo = params.org + '/' + params.repo;
-	export const ssr = false;
+
 </script>
 
 <div class="text-sm breadcrumbs">

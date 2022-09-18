@@ -5,6 +5,6 @@ module.exports = {
 		require('tailwindcss'),
 
 		// only use css nano on prod
-		prod && require('cssnano')({ preset: 'advanced' })
-	]
+		prod && require('cssnano')({ preset: 'advanced' }),
+	],
 };

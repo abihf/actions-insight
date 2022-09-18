@@ -8,11 +8,11 @@ const config = {
 	preprocess: preprocess({ postcss: true, sourceMap: true }),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
 	},
 	compilerOptions: {
-		enableSourcemap: true
-	}
+		enableSourcemap: true,
+	},
 };
 
 export default config;

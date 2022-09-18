@@ -1,11 +1,12 @@
-import type { PageServerLoad } from './$types';
 import type { WorkflowRun } from '@octokit/webhooks-types';
+import type { PageServerLoad } from './$types';
+
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const rawRuns = await locals.prisma.run.findMany({
 		include: { jobs: { orderBy: { started_at: 'asc' } } },
 		where: { workflow_id: parseInt(params.workflow, 10), ref: params.ref },
+		orderBy: { started_at: 'desc' },
 		take: 50,
-		orderBy: { started_at: 'desc' }
 	});
 
 	const columnSet = new Set<string>();
@@ -35,6 +36,6 @@ function iteratorToStream<T>(iterator: AsyncIterator<T, T>) {
 			} else {
 				controller.enqueue(value);
 			}
-		}
+		},
 	});
 }

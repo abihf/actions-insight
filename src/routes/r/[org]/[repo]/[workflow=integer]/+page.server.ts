@@ -4,7 +4,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	const rows = await locals.prisma.run.findMany({
 		select: { ref: true },
 		where: { workflow_id: parseInt(params.workflow, 10) },
-		distinct: ['ref']
+		distinct: ['ref'],
 	});
 	const refs = rows.map((r) => extractRef(r.ref));
 	refs.sort((a, b) => {
@@ -40,14 +40,14 @@ function extractRef(name: string): RefInfo {
 			name,
 			isPR,
 			prNumber: num === 'unknown' ? 0 : parseInt(num, 10),
-			priority: 2
+			priority: 2,
 		};
 	} else {
 		return {
 			name,
 			isPR,
 			branch: name.replace(/^head\//, ''),
-			priority: 1
+			priority: 1,
 		};
 	}
 }

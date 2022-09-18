@@ -7,39 +7,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Job {
-  id           BigInt         @id @default(autoincrement())
-  created_at   DateTime?      @default(now()) @db.Timestamp(6)
-  started_at   DateTime       @db.Timestamp(6)
-  completed_at DateTime?      @db.Timestamp(6)
-  status       String?        @db.VarChar
-  conclusion   JobConclusion?
-  name         String?        @db.VarChar
-  data         Json?          @db.Json
-  run_id       BigInt
-  run          Run            @relation(fields: [run_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_run")
+model User {
+  id         BigInt       @id
+  created_at DateTime?    @default(now()) @db.Timestamp(6)
+  login      String       @db.VarChar
+  name       String?      @db.VarChar
 
-  @@map("job")
-}
+  repos      RepoAccess[]
+  runs        Run[]
 
-enum JobConclusion {
-  success
-  failure
-  cancelled
-  skipped
-
-  @@map("job_conclusion")
+  @@map("user")
 }
 
 model Repo {
-  id              BigInt     @id @default(autoincrement())
-  created_at      DateTime?  @default(now()) @db.Timestamp(6)
-  owner           String     @db.VarChar
-  name            String     @db.VarChar
+  id              BigInt       @id @default(autoincrement())
+  created_at      DateTime?    @default(now()) @db.Timestamp(6)
+  owner           String       @db.VarChar
+  name            String       @db.VarChar
   installation_id Int?
   workflows       Workflow[]
+  access          RepoAccess[]
 
   @@map("repo")
+}
+
+model RepoAccess {
+  repo_id BigInt
+  user_id BigInt
+  type    AccessType
+
+  repo Repo @relation(fields: [repo_id], references: [id], map: "fk_repo")
+  user User @relation(fields: [user_id], references: [id], map: "fk_user")
+
+  @@id([repo_id, user_id])
+  @@map("repo_access")
+}
+
+enum AccessType {
+  read
+  write
+  admin
+}
+
+model Workflow {
+  id         BigInt    @id @default(autoincrement())
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  name       String?   @db.VarChar
+  path       String    @db.VarChar
+  repo_id    BigInt
+  repo       Repo      @relation(fields: [repo_id], references: [id], map: "fk_repo")
+  runs       Run[]
+
+  @@map("workflow")
 }
 
 model Run {
@@ -54,7 +73,9 @@ model Run {
   started_at  DateTime       @db.Timestamp(6)
   data        Json?          @db.Json
   workflow_id BigInt
-  workflow    Workflow       @relation(fields: [workflow_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_workflow")
+  workflow    Workflow       @relation(fields: [workflow_id], references: [id], map: "fk_workflow")
+  actor_id    BigInt?
+  actor       User?           @relation(fields: [actor_id], references: [id], map: "fk_actor")
   jobs        Job[]
 
   @@map("run")
@@ -73,14 +94,26 @@ enum RunConclusion {
   @@map("run_conclusion")
 }
 
-model Workflow {
-  id         BigInt    @id @default(autoincrement())
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  name       String?   @db.VarChar
-  path       String    @db.VarChar
-  repo_id    BigInt
-  repo       Repo      @relation(fields: [repo_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_repo")
-  runs       Run[]
+model Job {
+  id           BigInt         @id @default(autoincrement())
+  created_at   DateTime?      @default(now()) @db.Timestamp(6)
+  started_at   DateTime       @db.Timestamp(6)
+  completed_at DateTime?      @db.Timestamp(6)
+  status       String?        @db.VarChar
+  conclusion   JobConclusion?
+  name         String?        @db.VarChar
+  data         Json?          @db.Json
+  run_id       BigInt
+  run          Run            @relation(fields: [run_id], references: [id], map: "fk_run")
 
-  @@map("workflow")
+  @@map("job")
+}
+
+enum JobConclusion {
+  success
+  failure
+  cancelled
+  skipped
+
+  @@map("job_conclusion")
 }

@@ -1,6 +1,6 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "prisma.fileWatcher": true,
-  "svelte.enable-ts-plugin": true,
-
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"prisma.fileWatcher": true,
+	"svelte.enable-ts-plugin": true,
+	"editor.formatOnSave": true
 }
