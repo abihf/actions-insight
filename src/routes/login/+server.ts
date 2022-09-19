@@ -4,8 +4,8 @@ import { error, redirect, type RequestHandler } from '@sveltejs/kit';
 import { randomUUID } from 'crypto';
 import { Octokit } from '@octokit/rest';
 
-const client_id = env.GITHUB_CLIENT_ID;
-const client_secret = env.GITHUB_CLIENT_SECRET;
+const client_id = env.GITHUB_CLIENT_ID!;
+const client_secret = env.GITHUB_CLIENT_SECRET!;
 
 export const GET: RequestHandler = async ({ url, cookies, locals }) => {
 	const qs = url.searchParams;

@@ -1,5 +1,7 @@
 import { env } from '$env/dynamic/private';
 import { AuthSession } from '$lib/auth';
+import { createAppAuth } from '@octokit/auth-app';
+import { Octokit } from '@octokit/rest';
 import { PrismaClient } from '@prisma/client';
 import type { Handle } from '@sveltejs/kit';
 
