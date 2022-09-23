@@ -43,8 +43,9 @@ export const GET: RequestHandler = async ({ url, cookies, locals }) => {
 		}),
 	});
 	if (tokenRes.status !== 200) {
-		console.log('gagal', await tokenRes.text());
-		throw error(400, { message: `invalid authorization status code ${tokenRes.status}` });
+		throw error(400, {
+			message: `invalid authorization status code ${tokenRes.status}: ${await tokenRes.text()}`,
+		});
 	}
 	const tokenBody: { access_token: string } = await tokenRes.json();
 	const token = 'bearer ' + tokenBody.access_token;
