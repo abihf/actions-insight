@@ -1,14 +1,6 @@
 //@ts-check
 import { nodeFileTrace } from '@vercel/nft';
-import {
-	copyFileSync,
-	mkdirSync,
-	readlinkSync,
-	realpathSync,
-	statSync,
-	symlinkSync,
-	writeFileSync,
-} from 'fs';
+import { copyFileSync, mkdirSync, readlinkSync, statSync, symlinkSync, writeFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
