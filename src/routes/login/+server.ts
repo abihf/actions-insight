@@ -1,8 +1,7 @@
 import { env } from '$env/dynamic/private';
-import { error, redirect, type RequestHandler } from '@sveltejs/kit';
-// import { URL, URLSearchParams } from "url";
-import { randomUUID } from 'crypto';
 import { Octokit } from '@octokit/rest';
+import { error, redirect, type RequestHandler } from '@sveltejs/kit';
+import { randomUUID } from 'crypto';
 
 const client_id = env.GITHUB_CLIENT_ID!;
 const client_secret = env.GITHUB_CLIENT_SECRET!;

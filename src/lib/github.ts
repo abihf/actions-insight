@@ -4,7 +4,7 @@ import { Octokit } from '@octokit/rest';
 
 export const ghAuth = createAppAuth({
 	appId: env.GITHUB_APP_ID!,
-	privateKey: '-----BEGIN PRIVATE KEY-----\n...',
+	privateKey: env.GITHUB_APP_KEY!,
 	clientId: env.GITHUB_CLIENT_ID!,
 	clientSecret: env.GITHUB_CLIENT_SECRET!,
 });
