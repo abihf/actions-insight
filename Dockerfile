@@ -1,4 +1,4 @@
-FROM node:16-alpine AS build
+FROM node:16 AS build
 WORKDIR /build
 RUN corepack enable
 ADD package.json pnpm-lock.yaml ./
@@ -8,7 +8,7 @@ RUN pnpx prisma generate
 ADD . .
 RUN SVELTE_ADAPTER=docker pnpm build
 
-FROM node:16-alpine
+FROM node:16-slim
 ENV PORT=5173
 USER node
 COPY --from=build /build/build /app
